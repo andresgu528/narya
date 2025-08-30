@@ -40,6 +40,12 @@ For codatatypes, we simply use the ordinary syntax, but the "self" variable auto
 
    def Gel (A B : Type) (R : A → B → Type) : Br Type A B ≔ codata [ x .ungel : R x.0 x.1 ]
 
+We can also use :ref:`Self variables for record types`:
+
+.. code-block:: none
+
+   def Gel (A B : Type) (R : A → B → Type) : Br Type A B ≔ sig ( x .ungel : R x.0 x.1 )
+
 We may allow more flexibility in the future, but in practice the current restrictions do not seem very onerous.  For most applications, the above "Gel" record type can simply be defined once and used everywhere, rather than declaring new higher-dimensional types all the time.  Note that because record-types satisfy η-conversion, ``Gel A B R a b`` is definitionally isomorphic to ``R a b``.  Thus, ``Br Type A B`` contains ``A → B → Type`` as a "retract up to definitional isomorphism".  This appears to be sufficient for all applications of internal parametricity.  (``Br Type`` does not itself satisfy any η-conversion rule.)
 
 There is one additional subtlety involving higher-dimensional record and codata types, specifically in their degeneracies.  Since ordinary canonical types are "intrinsically" 0-dimensional, any degeneracy operations on them reduce to a "pure degeneracy" consisting entirely of ``p`` s, e.g. ``M⁽ᵖᵖ⁾⁽²¹⁾`` reduces to simply ``M⁽ᵖᵖ⁾``.  These *pure* degeneracies of canonical types are again canonical types of the same form, as discussed in :ref:`Observational higher dimensions`.

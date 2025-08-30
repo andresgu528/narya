@@ -232,3 +232,17 @@ We now list the opacity attributes, along with how altering the opacity of ``pro
    - ``z`` is printed as ``(a, z .snd)``
 
 For a record type with zero fields, η-expansion prints all of its elements as ``()``, with no difference between labeled and positional.  And for a record type with one field, positional η-expansion prints its elements as ``(_ ≔ a)``.  There is currently no way to cause the projections in an η-expansion to be printed with positional notation such as ``(x .0, x .1)``.
+
+
+Self variables for record types
+-------------------------------
+
+There is an alternative notation for defining record types, using the same syntax of "self variables" that is always used for :ref:`codatatypes <Codatatypes and comatching>`.  See there for more details; as an example, Σ-types can equivalently be defined by
+
+.. code-block:: none
+
+   def Σ (A : Type) (B : A → Type) : Type ≔ sig (
+     x .fst : A,
+     x .snd : B (x .fst))
+
+Note that this is just a different notation for record types, not anything like a "codatatype with eta-conversion".  (At present there is no practical difference, but in the future recursion will be forbidden in record types, even those that use the self-variable notation.)  In addition, self-variable syntax cannot be mixed with the usual syntax for defining record types: any given record type declaration must use one or the other consistently for all of its fields.
